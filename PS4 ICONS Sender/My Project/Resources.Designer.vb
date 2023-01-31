@@ -63,9 +63,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property ps4icon() As System.Drawing.Bitmap
+        Friend ReadOnly Property ps4iconlogo() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("ps4icon", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("ps4iconlogo", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -73,9 +73,19 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property PS4icons01() As System.Drawing.Bitmap
+        Friend ReadOnly Property ps4iconlogo48() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("PS4icons01", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("ps4iconlogo48", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ps4iconlogom() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ps4iconlogom", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

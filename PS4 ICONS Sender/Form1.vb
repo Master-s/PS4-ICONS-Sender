@@ -3,7 +3,25 @@ Imports System.Net
 Imports System.Collections.Generic
 Imports System.IO.Compression
 Imports System.ComponentModel
+Imports System.Runtime.InteropServices
 Public Class Form1
+    Inherits Form
+    Private dragging As Boolean = False
+    Private stratPoint As Point = New Point(0, 0)
+
+    <DllImport("Gdi32.dll", EntryPoint:="CreateRoundRectRgn")>
+    Private Shared Function CreateRoundRectRgn(ByVal nLeftRect As Integer, ByVal nTopRect As Integer, ByVal nRightRect As Integer, ByVal nBottomRect As Integer, ByVal nWidthEllipse As Integer, ByVal nHeightEllipse As Integer) As IntPtr     ' x-coordinate of upper-left corner
+        ' y-coordinate of upper-left corner
+        ' x-coordinate of lower-right corner
+        ' y-coordinate of lower-right corner
+        ' height of ellipse
+        ' width of ellipse
+    End Function
+    Public Sub New()
+        InitializeComponent()
+        FormBorderStyle = FormBorderStyle.None
+        Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20))
+    End Sub
 
     Private Sub ipbox_TextChanged(sender As Object, e As EventArgs) Handles ipbox.TextChanged
 
@@ -23,6 +41,7 @@ Public Class Form1
         Else
             ipbox.Text = My.Settings.IP
         End If
+
     End Sub
 
     Private Sub BuFolder_Click(sender As Object, e As EventArgs) Handles BuFolder.Click
@@ -79,4 +98,30 @@ Public Class Form1
             Process.Start("explorer.exe", "ftp://" & ipbox.Text & ":" & portbox.Text & "/data/ICONS/")
         End If
     End Sub
+    Private Sub panel3_MouseDown(ByVal sender As Object, ByVal e As MouseEventArgs) Handles Panel3.MouseDown
+        dragging = True
+        stratPoint = New Point(e.X, e.Y)
+    End Sub
+
+    Private Sub panel3_MouseUp(ByVal sender As Object, ByVal e As MouseEventArgs) Handles Panel3.MouseUp
+        dragging = False
+    End Sub
+
+    Private Sub panel3_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs) Handles Panel3.MouseMove
+        If dragging Then
+
+            Dim p = PointToScreen(e.Location)
+            Location = New Point(p.X - stratPoint.X, p.Y - stratPoint.Y)
+        End If
+
+    End Sub
+
+    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
+        Me.Close()
+    End Sub
+
+    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
 End Class
